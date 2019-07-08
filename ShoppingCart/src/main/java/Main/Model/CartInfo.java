@@ -84,18 +84,18 @@ public class CartInfo {
 		}
 		
 		public double getAmountTotal() {
-			double total = 0;
-			for(CartLineInfo line : this.cartLines) {
-				total += line.getAmount();
-			}
-			return total;
-		}
+	        double total = 0;
+	        for (CartLineInfo line : this.cartLines) {
+	            total += line.getAmount();
+	        }
+	        return total;
+	    }
 		
 		public void updateQuantity(CartInfo cartForm) {
 			if(cartForm != null) {
-				List<CartLineInfo> lines = cartForm.getCode(),line.getQuantity());
+				List<CartLineInfo> lines = cartForm.getCartLines();
 				for(CartLineInfo line : lines) {
-					this.updateProduct(line.getProductInfo().getCode().line.getQuantity());
+					this.updateProduct(line.getProductInfo().getCode(),line.getQuantity());
 				}
 			}
 		}
