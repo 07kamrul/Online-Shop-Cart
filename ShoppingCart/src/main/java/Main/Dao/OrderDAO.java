@@ -107,17 +107,22 @@ public class OrderDAO {
 				order.getCustomerName(), order.getCustomerAddress(), order.getCustomerEmail(),
 				order.getCustomerPhone());
 	}
-	public List<OrderDetailInfo> listOrderDetailInfos(String orderId){
+
+	private Order findOrder(String orderId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		return session.find(Order.class, orderId);
+	}
+
+	public List<OrderDetailInfo> listOrderDetailInfos(String orderId) {
 		String sql = "Select new " + OrderDetailInfo.class.getName()
-				+ "(d.id, d.product.code, d.product.name, d.quantity, d.price, d.amount"
-				+ "from" + OrderDetail.class.getName() + " d "
-				+ " where d.order.id = :orderId";
-		
+				+ "(d.id, d.product.code, d.product.name, d.quantity, d.price, d.amount" + "from"
+				+ OrderDetail.class.getName() + " d " + " where d.order.id = :orderId";
+
 		Session session = this.sessionFactory.getCurrentSession();
 		Query<OrderDetailInfo> query = session.createQuery(sql, OrderDetailInfo.class);
 		query.setParameter("orderId", orderId);
-		
+
 		return query.getResultList();
-				
-				}
+
+	}
 }

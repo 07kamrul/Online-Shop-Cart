@@ -1,6 +1,7 @@
 package Main.Dao;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.persistence.NoResultException;
 
@@ -87,16 +88,16 @@ public class ProductDAO {
 			String likeName) {
 		String sql = "Select new" + ProductInfo.class.getName() + "(p.code,p.name,p.price)" + "from"
 				+ Product.class.getName() + "p";
-		if(likeName  != null && likeName.length()>0) {
-			sql += " Where lower(p.name) like :likeNmae"; 
+		if (likeName != null && likeName.length() > 0) {
+			sql += " Where lower(p.name) like :likeNmae";
 		}
 		sql += " Order by p.createDate desc";
-		
+
 		Session session = this.sessionFactory.getCurrentSession();
 		Query<ProductInfo> query = session.createQuery(sql, ProductInfo.class);
-		
-		if(likeName != null && likeName.length()>0) {
-			query.setParameter("likeName", "%" + likeName.toLowerCase() + "%")
+
+		if (likeName != null && likeName.length() > 0) {
+			query.setParameter("likeName", "%" + likeName.toLowerCase() + "%");
 		}
 		return new PaginationResult<ProductInfo>(query, page, maxResult, maxNavigationPage);
 	}
