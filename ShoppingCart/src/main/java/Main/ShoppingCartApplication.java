@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -21,6 +22,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class,
 		DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
+@ComponentScan(basePackages = "Main")
 public class ShoppingCartApplication {
 	@Autowired
 	private Environment env;
@@ -29,7 +31,7 @@ public class ShoppingCartApplication {
 		SpringApplication.run(ShoppingCartApplication.class, args);
 	}
 
-	@Bean(name = "dataSource")
+	@Bean
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
@@ -38,13 +40,13 @@ public class ShoppingCartApplication {
 		dataSource.setUsername(env.getProperty("spring.datasource.username"));
 		dataSource.setPassword(env.getProperty("spring.datasource.password"));
 
-		System.out.println("##getDataSource: " + dataSource);
+		System.out.println("## getDataSource: " + dataSource);
 
 		return dataSource;
 	}
 
 	@Autowired
-	@Bean(name = "sessionFactory")
+	@Bean
 	public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
 		Properties properties = new Properties();
 

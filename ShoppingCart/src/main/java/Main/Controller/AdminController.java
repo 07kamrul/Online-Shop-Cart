@@ -28,8 +28,9 @@ import Main.Model.OrderInfo;
 import Main.Pagination.PaginationResult;
 import Main.Validator.ProductFormValidator;
 
-@Controller
+@Controller(value="adminController")
 @Transactional
+@RequestMapping("/admin")
 public class AdminController {
 
 	@Autowired
@@ -61,7 +62,7 @@ public class AdminController {
 		return "login";
 	}
 
-	@RequestMapping(value = { "/admin/login" }, method = RequestMethod.GET)
+	@RequestMapping(value =  "/admin/accountInfo", method = RequestMethod.GET)
 	public String accountInfo(Model model) {
 
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -74,7 +75,7 @@ public class AdminController {
 		return "accountInfo";
 	}
 
-	@RequestMapping(value = { "/admin/orderList" }, method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/orderList", method = RequestMethod.GET)
 	public String orderList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr) {
 		int page = 1;
 		try {

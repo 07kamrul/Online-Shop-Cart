@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Books Shop Online</title>
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+
+	<th:block th:include="/_header"></th:block>
+	<th:block th:include="/_menu"></th:block>
+
+	<div class="page-title">Shopping Cart Demo</div>
+
+	<div class="demo-container">
+		<h3>Demo Content</h3>
+		<ul>
+			<li>Buy Online</li>
+			<li>Admin Pages</li>
+			<li>Reports</li>
+		</ul>
+	</div>
+
+	<th:block th:include="/_footer"></th:block>
+
+</body>
+</html>

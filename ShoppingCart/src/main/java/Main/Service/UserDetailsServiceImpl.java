@@ -10,21 +10,24 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import Main.Dao.AccountDAO;
 import Main.Entity.Account;
 
-@Service
+
+@Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private AccountDAO accountDAO;
 
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Account account = accountDAO.findAccount(username);
 		System.out.println("Account: " + account);
+		
 		if (account == null) {
 			throw new UsernameNotFoundException("User " + username + " was not found in the database");
 		}
